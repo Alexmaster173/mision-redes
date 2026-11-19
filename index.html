@@ -8,7 +8,11 @@
 <meta name="theme-color" content="#0b1020">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Misión Redes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Misión Redes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -22,6 +26,10 @@
   <div class="install" id="installBox" hidden>
     <span>📲 Instala Misión Redes como app en tu celular</span>
     <button class="pri" id="installBtn">Instalar</button>
+  </div>
+  <div class="install ios" id="iosBox" hidden>
+    <span>📲 Instálala en tu iPhone: toca <b>Compartir</b> <span class="share">⬆︎</span> abajo en Safari y luego <b>"Agregar a inicio"</b>.</span>
+    <button id="iosClose" aria-label="Cerrar">✕</button>
   </div>
   <div class="hud">
     <div class="card">
@@ -83,6 +91,7 @@
     <p class="mb0"><b>Nota:</b> si algún curso no te aparece en español, revisa el selector de idioma en NetAcad. Los nombres de los cursos suelen mostrarse en inglés aunque el contenido esté en español.</p>
   </div>
   <p class="center mt24"><button class="reset" id="resetAll">Borrar mi progreso</button></p>
+  <p class="center small">Versión 5</p>
 </div>
 
 <div class="toast" id="toast"></div>

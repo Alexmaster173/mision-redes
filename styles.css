@@ -105,3 +105,4 @@ a{color:var(--acc2)}
 
 .grow{flex:1}.mt8{margin-top:8px}.mt0{margin-top:0}.mb0{margin-bottom:0}.center{text-align:center}.mt24{margin-top:24px}.m6{margin:6px 0}
 .install[hidden]{display:none!important}
+.install.ios{font-weight:500;font-size:14px}.install.ios button{flex:none;padding:6px 10px}.share{display:inline-block;border:1px solid var(--acc2);border-radius:6px;padding:0 5px;color:var(--acc2)}

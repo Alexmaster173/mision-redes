@@ -1,6 +1,6 @@
 "use strict";
-const CACHE = "mision-redes-v3";
-const FILES = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
+const CACHE = "mision-redes-v5";
+const FILES = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 const SCOPE = self.registration.scope;
 
 self.addEventListener("install", e => {
@@ -18,7 +18,7 @@ self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET" || !req.url.startsWith(SCOPE)) return;
   e.respondWith(
-    fetch(req).then(r => {
+    fetch(req, { cache: "no-cache" }).then(r => {
       if (r.ok && r.type === "basic") {
         const copy = r.clone();
         caches.open(CACHE).then(c => c.put(req, copy));

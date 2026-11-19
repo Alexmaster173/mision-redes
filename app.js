@@ -158,7 +158,8 @@ function tDraw(){const m=String(Math.floor(left/60)).padStart(2,"0"),s2=String(l
   document.getElementById("tStart").textContent=iv?"⏸ Pausa":"▶ Empezar";
   document.getElementById("tSwitch").textContent=focus?"☕ Descanso":"🎯 Enfoque";
   document.getElementById("tCount").textContent=S.pomo[today()]||0;}
-function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();[0,.25,.5].forEach(d=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=880;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.15,a.currentTime+d);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d+.2);o.start(a.currentTime+d);o.stop(a.currentTime+d+.2)})}catch(e){}
+let AC=null;function unlockAudio(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume()}catch(e){}}
+function beep(){try{unlockAudio();const a=AC;[0,.25,.5].forEach(d=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=880;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.15,a.currentTime+d);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d+.2);o.start(a.currentTime+d);o.stop(a.currentTime+d+.2)})}catch(e){}
   try{navigator.vibrate&&navigator.vibrate([300,150,300,150,300])}catch(e){}}
 async function notify(title,body){
   try{if(!("Notification" in window)||Notification.permission!=="granted")return;
@@ -173,7 +174,7 @@ function finish(){clearInterval(iv);iv=null;beep();
   else{toast("🎯 Descanso terminado. ¿Otro bloque?");notify("🎯 Se acabó el descanso","¿Listo para la siguiente misión?");
     document.getElementById("tMsg").textContent="¿Listo para la siguiente misión?";setMode(true)}}
 function tick(){left=Math.max(0,Math.round((endAt-Date.now())/1000));if(left<=0){finish();return}tDraw()}
-document.getElementById("tStart").onclick=()=>{
+document.getElementById("tStart").onclick=()=>{unlockAudio();
   if(iv){clearInterval(iv);iv=null;tDraw();return}
   try{if("Notification" in window&&Notification.permission==="default")Notification.requestPermission()}catch(e){}
   if(focus)document.getElementById("tMsg").textContent=FOCUS_MSG[Math.floor(Math.random()*FOCUS_MSG.length)];
@@ -201,6 +202,13 @@ window.addEventListener("appinstalled",()=>{markInstalled();hideInstall();toast(
 try{window.matchMedia("(display-mode: standalone)").addEventListener("change",ev=>{if(ev.matches){markInstalled();hideInstall()}})}catch(e){}
 if(navigator.getInstalledRelatedApps){navigator.getInstalledRelatedApps().then(apps=>{if(apps&&apps.length){markInstalled();hideInstall()}}).catch(()=>{})}
 if(isStandalone()||wasInstalled())hideInstall();
+// iPhone/iPad: Safari no tiene botón de instalar, así que mostramos cómo hacerlo
+const IOS_KEY="mision-redes-ios-aviso";
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+let iosDismissed=false;try{iosDismissed=localStorage.getItem(IOS_KEY)==="1"}catch(e){}
+if(isIOS&&!isStandalone()&&!iosDismissed)document.getElementById("iosBox").hidden=false;
+document.getElementById("iosClose").onclick=()=>{document.getElementById("iosBox").hidden=true;try{localStorage.setItem(IOS_KEY,"1")}catch(e){}};
+
 
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
 
