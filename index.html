@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Misión Redes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>Misión <span>Redes</span> 🛰️</h1>
+  <p class="sub">12 semanas · unas 6 horas por semana · sesiones cortas de 25 minutos · meta final: certificación <b>Cisco CCST Networking</b> con examen en español.</p>
+
+  <div class="install" id="installBox" hidden>
+    <span>📲 Instala Misión Redes como app en tu celular</span>
+    <button class="pri" id="installBtn">Instalar</button>
+  </div>
+  <div class="hud">
+    <div class="card">
+      <div class="lvl">
+        <div class="badge" id="lvlIcon">🐣</div>
+        <div class="grow">
+          <div class="small">Tu nivel</div>
+          <div class="lvl-name" id="lvlName">Novato</div>
+          <div class="xpbar"><i id="xpFill"></i></div>
+          <div class="small mono" id="xpText">0 XP</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="sDone">0</b><span class="small">misiones</span></div>
+        <div class="stat"><b id="sPct">0%</b><span class="small">del plan</span></div>
+        <div class="stat fire"><b id="sStreak">0🔥</b><span class="small">días seguidos</span></div>
+      </div>
+    </div>
+    <div class="card timer" id="timer">
+      <div class="mode" id="tMode">Sesión de enfoque</div>
+      <div class="time" id="tTime">25:00</div>
+      <div class="small" id="tMsg">Una misión = un bloque de 25 min. Solo uno. Tú puedes.</div>
+      <div class="btns">
+        <button class="pri" id="tStart">▶ Empezar</button>
+        <button id="tReset">↺</button>
+        <button id="tSwitch">☕ Descanso</button>
+      </div>
+      <div class="small mt8">Bloques completados hoy: <b id="tCount">0</b></div>
+    </div>
+  </div>
+
+  <div class="sec-title"><h2>Enlaces rápidos</h2></div>
+  <div class="ql">
+    <a href="https://www.netacad.com" target="_blank" rel="noopener noreferrer"><b>🎓 NetAcad</b><span>Tus cursos gratis. Busca "Network Technician Career Path"</span></a>
+    <a href="https://www.netacad.com/courses/packet-tracer" target="_blank" rel="noopener noreferrer"><b>🧪 Packet Tracer</b><span>Simulador gratis (inicia sesión con tu cuenta NetAcad)</span></a>
+    <a href="https://learningnetwork.cisco.com/s/binary-game" target="_blank" rel="noopener noreferrer"><b>🎮 Juego de binario de Cisco</b><span>Aprende binario jugando (cuenta gratis de Cisco)</span></a>
+    <a href="https://subnettingpractice.com" target="_blank" rel="noopener noreferrer"><b>🧮 Práctica de subnetting</b><span>Un ejercicio nuevo cada vez que recargas</span></a>
+    <a href="https://www.cisco.com/site/us/en/learn/training-certifications/exams/ccst-networking.html" target="_blank" rel="noopener noreferrer"><b>🏆 Examen CCST Networking</b><span>Página oficial de Cisco (temario, precio, idiomas)</span></a>
+    <a href="https://www.pearsonvue.com/cisco" target="_blank" rel="noopener noreferrer"><b>📅 Pearson VUE</b><span>Aquí agendas tu examen</span></a>
+  </div>
+
+  <div class="sec-title"><h2>Tu mapa de misiones</h2><span class="small">Toca una semana para abrirla</span></div>
+  <div id="weeks"></div>
+
+  <div class="sec-title"><h2>Si te distraes, usa esto</h2></div>
+  <div class="tips">
+    <div class="tip"><div class="e">📵</div><b>Teléfono en otro cuarto</b><p>No en silencio, no boca abajo: en otro cuarto. Solo durante los 25 minutos.</p></div>
+    <div class="tip"><div class="e">🎯</div><b>Una sola misión a la vez</b><p>No pienses en las 12 semanas. Piensa solo en la siguiente casilla.</p></div>
+    <div class="tip"><div class="e">📝</div><b>Hoja de "luego"</b><p>¿Se te ocurre ver algo? Anótalo en un papel y sigue. Lo revisas en el descanso.</p></div>
+    <div class="tip"><div class="e">🧪</div><b>Primero haz, luego lee</b><p>Si un tema te aburre, abre Packet Tracer y juega con él. Practicar engancha más que leer.</p></div>
+    <div class="tip"><div class="e">🔥</div><b>No rompas la racha</b><p>¿Día malo? Haz una misión pequeña de 10 minutos. Cuenta igual para la racha.</p></div>
+    <div class="tip"><div class="e">📅</div><b>Misma hora, mismo lugar</b><p>Elige tu horario (ej. 8:00 p.m.) y pon una alarma diaria en la app Reloj de tu celular que diga "Misión Redes". El hábito pesa más que la fuerza de voluntad.</p></div>
+  </div>
+
+  <div class="sec-title"><h2>Datos clave</h2></div>
+  <div class="info">
+    <p class="mt0"><b>Dónde estudias:</b> <a href="https://www.netacad.com" target="_blank" rel="noopener noreferrer">netacad.com</a> (Cisco Networking Academy). Es gratis; solo creas una cuenta. Busca la ruta <b>"Network Technician Career Path"</b>: son 4 cursos y unas 70 horas en total. Cada curso te da certificado de finalización, y la ruta completa te da una insignia digital si sacas 70% o más en el examen final.</p>
+    <p><b>Certificación oficial (el "jefe final"):</b> Cisco CCST Networking (examen 100-150). Se presenta <b>en español</b>, dura 50 minutos y cuesta 125 USD. Se agenda en Pearson VUE, en línea o en un centro de examen. También es el primer paso hacia la CCNA.</p>
+    <p class="mb0"><b>Nota:</b> si algún curso no te aparece en español, revisa el selector de idioma en NetAcad. Los nombres de los cursos suelen mostrarse en inglés aunque el contenido esté en español.</p>
+  </div>
+  <p class="center mt24"><button class="reset" id="resetAll">Borrar mi progreso</button></p>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="lvlup" id="lvlup"><div class="card"><div class="big" id="luIcon">🚀</div><h2 class="m6" id="luName">¡Subiste de nivel!</h2><p class="small" id="luMsg"></p><button class="pri" id="luClose">¡Vamos!</button></div></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
