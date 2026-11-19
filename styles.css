@@ -104,3 +104,4 @@ a{color:var(--acc2)}
 .reset{background:none;border:none;color:var(--mut);font-size:12px;text-decoration:underline;padding:0}
 
 .grow{flex:1}.mt8{margin-top:8px}.mt0{margin-top:0}.mb0{margin-bottom:0}.center{text-align:center}.mt24{margin-top:24px}.m6{margin:6px 0}
+.install[hidden]{display:none!important}

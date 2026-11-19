@@ -182,11 +182,26 @@ document.addEventListener("visibilitychange",()=>{if(iv&&!document.hidden)tick()
 document.getElementById("tReset").onclick=()=>{clearInterval(iv);iv=null;setMode(focus)};
 document.getElementById("tSwitch").onclick=()=>{clearInterval(iv);iv=null;setMode(!focus)};
 
-// Instalación como app
+// Instalación como app: el botón solo aparece si la app NO está instalada
+const INST_KEY="mision-redes-instalada";
+function isStandalone(){try{return window.matchMedia("(display-mode: standalone)").matches||window.matchMedia("(display-mode: fullscreen)").matches||window.matchMedia("(display-mode: minimal-ui)").matches||navigator.standalone===true}catch(e){return false}}
+function markInstalled(){try{localStorage.setItem(INST_KEY,"1")}catch(e){}}
+function wasInstalled(){try{return localStorage.getItem(INST_KEY)==="1"}catch(e){return false}}
+function hideInstall(){document.getElementById("installBox").hidden=true}
 let deferred=null;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;document.getElementById("installBox").hidden=false});
-document.getElementById("installBtn").onclick=async()=>{if(!deferred)return;deferred.prompt();await deferred.userChoice;deferred=null;document.getElementById("installBox").hidden=true};
-window.addEventListener("appinstalled",()=>{document.getElementById("installBox").hidden=true;toast("📲 ¡App instalada!")});
+if(isStandalone())markInstalled();
+window.addEventListener("beforeinstallprompt",e=>{
+  // Si Chrome ofrece instalar, la app no está instalada (por ejemplo, la desinstalaste): reinicia la marca
+  try{localStorage.removeItem(INST_KEY)}catch(err){}
+  e.preventDefault();deferred=e;
+  if(!isStandalone())document.getElementById("installBox").hidden=false});
+document.getElementById("installBtn").onclick=async()=>{if(!deferred)return;deferred.prompt();
+  const r=await deferred.userChoice;deferred=null;hideInstall();if(r&&r.outcome==="accepted")markInstalled()};
+window.addEventListener("appinstalled",()=>{markInstalled();hideInstall();toast("📲 ¡App instalada!")});
+try{window.matchMedia("(display-mode: standalone)").addEventListener("change",ev=>{if(ev.matches){markInstalled();hideInstall()}})}catch(e){}
+if(navigator.getInstalledRelatedApps){navigator.getInstalledRelatedApps().then(apps=>{if(apps&&apps.length){markInstalled();hideInstall()}}).catch(()=>{})}
+if(isStandalone()||wasInstalled())hideInstall();
+
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}
 
 // Reset con confirmación en dos toques (sin confirm())

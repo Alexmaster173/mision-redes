@@ -1,5 +1,5 @@
 "use strict";
-const CACHE = "mision-redes-v2";
+const CACHE = "mision-redes-v3";
 const FILES = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 const SCOPE = self.registration.scope;
 
